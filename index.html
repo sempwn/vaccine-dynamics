@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Infectious disease dynamics</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap-slider.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#">Infectious disease dynamics</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="./index.html">Instructions <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./fitting.html">Fitting </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./simulation.html">Simulation </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    <div class="container">
+
+            <h2 id="introduction">
+                Introduction
+            </h2>
+
+            <p>
+                The main task is to calculate the epidemiological parameters by comparing the
+                output of mathematical models to data and investigate what kinds of interventions
+                would be required in order to control the outbreak.
+            </p>
+
+
+
+
+
+
+            <h2 id="background">Background</h2>
+            <p>One of the main goals in modelling of infectious diseases is
+            to be able to understand the Basic Reproduction Number or $R_0$, but what
+            actually is it? The exact definition is:
+            </p>
+            <blockquote class="lead text-center">
+                <p class="mb-0">The average number of secondary cases for every
+                    primary case in a completely susceptible population
+                </p>
+            </blockquote>
+            <p>
+                This may sound complicated, but it's fairly easy to understand.
+                As an example, imagine a person is infected and passes the
+                infection on to two people. Then one of those people passes the
+                infection on to one other person and the other passes it on to
+                three people. On average each person infected two other people,
+                so we would estimate the $R_0$ of that disease to be 2.
+            </p>
+            <p>
+                Use the tool below to explore the consequences of different
+                $R_0$ values. An epidemic is simulated for three generations and
+                who infects who are connected by lines.
+            </p>
+            <div class="form-inline">
+                <div class="form-group col-md-4">
+
+
+                        <label id ="f-inputr0-label" for="f-inputr0" class="ol-form-label">R0: 2.00</label>
+                        <i class="fa fa-question-circle" href="#" data-toggle="tooltip" data-placement="bottom" title=
+                                              "
+                                              Basic reproduction number. Average number
+                                              of secondary cases following a primary case.
+                                              "></i>
+                        <input id="f-inputr0" type="range" min="0" max="1500" value="200" class="slider">
+
+                </div>
+                <div class="form-group col-md-3">
+                    <button id="r0DiagramSimulate" class="btn btn-primary">Simulate!</button>
+                </div>
+            </div>
+            <div id="r0Diagram"></div>
+            <p>
+                Notice that if $R_0$ is below one then the epidemic is not likely
+                to get to the third generation. If it's above one then this is
+                possible. It turns out after a long time, if the $R_0$ is less than
+                one then the infection is guaranteed to die out, however if it
+                is bigger than one then there's a probability it will persist
+                and continue to become an epidemic. Estimating the $R_0$ is therefore
+                vitally important for public health intervention.
+            </p>
+        <h2 id="model_with_vaccination">Impact of vaccination</h2>
+        <p>
+            In this section we can consider the impact of vaccination on the
+            number of secondary cases from one primary case. Below you can explore
+            the consequences of randomly vaccinating the population with a perfect
+            vaccine (one with 100% effectiveness). For a given $R_0$ see how
+            much vaccine coverage you need before a an outbreak is very unlikely.
+            You can also extend the number of generations of the outbreak to
+            simulate to convince yourself whether an outbreak will occur or not.
+        </p>
+        <div class="form">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+
+                        <label id ="inputr0-label" for="inputr0" class="ol-form-label">R0: 2.00</label>
+                        <i class="fa fa-question-circle" href="#" data-toggle="tooltip" data-placement="bottom" title=
+                                              "
+                                              Basic reproduction number. Average number
+                                              of secondary cases following a primary case.
+                                              "></i>
+                        <input id="mv-inputr0" type="range" min="0" max="1500" value="200" class="slider">
+
+                </div>
+                <div class="form-group col-md-6">
+
+
+                        <label id ="inputcoverage-label" for="inputcoverage" class="col-form-label">Vaccination coverage: 0%</label>
+                        <i class="fa fa-question-circle" href="#" data-toggle="tooltip" data-placement="bottom" title=
+                                              "
+                                              The coverage of a 100% effective vaccine
+                                              ">
+                        </i>
+                        <input id="mv-inputvac" type="range" min="0" max="100" value="0" class="slider">
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+
+                        <label id ="inputgenerations-label" for="inputcoverage" class="col-form-label">Generations: 3</label>
+                        <i class="fa fa-question-circle" href="#" data-toggle="tooltip" data-placement="bottom" title=
+                                              "
+                                              Number of generations to simulate to.
+                                              ">
+                        </i>
+                        <input id="mv-inputgenerations" type="range" min="0" max="10" value="3" class="slider">
+
+                </div>
+
+                <div class="form-group col-md-3">
+                    <button id="mv-simulate" class="btn btn-primary">Simulate!</button>
+                </div>
+            </div>
+        </div>
+        <div id="mv-r0Diagram"></div>
+
+        <h2 id="Conclusion">Overview</h2>
+        <p>
+            It turns out that the relationship between an outbreak occurring and
+            vaccination is fairly simple. If the vaccination coverage is
+            $$1 - \frac{1}{R_0}$$
+            then the probability of an outbreak is zero. Look at the table below
+            for some example diseases and their corresponding $R_0$, the theoretical
+            optimal vaccination coverage is given next to each.
+        </p>
+
+        <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Disease</th>
+      <th scope="col">R0</th>
+      <th scope="col">Theoretical optimum vaccine coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Influenza</td>
+      <td>2-3</td>
+      <td>50-66%</td>
+    </tr>
+    <tr>
+      <td>Pertussis (Whooping cough)</td>
+      <td>5</td>
+      <td>80%</td>
+    </tr>
+    <tr>
+      <td>Polio</td>
+      <td>5-7</td>
+      <td>80-86%</td>
+    </tr>
+    <tr>
+      <td>Smallpox</td>
+      <td>5-7</td>
+      <td>80-86%</td>
+    </tr>
+    <tr>
+      <td>Measles</td>
+      <td>12-18</td>
+      <td>92-94%</td>
+    </tr>
+  </tbody>
+</table>
+
+        <p>
+            We can see that some diseases are very highly infectious meaning the
+            vaccine coverage needs to be very high. This is the important to understand
+            as some people are too young, or due to problems with their immune system would be unable
+            to receive a vaccine.
+        </p>
+        <p>
+            In the next two sections you can explore more closely the impact of
+            vaccination in a model of a city population of 100,000 people. In
+            the third section we can explore its consequences in an epidemic
+            across a whole country. Navigate to these from the menu at the top.
+        </p>
+
+
+
+        <footer class="footer">
+            <hr>
+            <p>© 2019</p>
+        </footer>
+
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.7.0/flowchart.min.js"></script>
+    <!-- D3 script -->
+    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+
+
+
+    <!-- Bootstrap -->
+    <script src="./js/konami.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <!-- bootstrap spinner -->
+    <script src="./js/spinner.js"></script>
+
+    <!-- Plot.ly js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+
+    <script src="./js/flowcharts.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+
+
+
+</html>

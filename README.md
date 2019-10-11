@@ -1,2 +1,10 @@
-# vaccine-dynamics
-Web app to explore the consequences of vaccination
+# Vaccine dynamics
+Interactive game exploring concepts around vaccination.
+
+## Run locally
+
+Run command
+
+```python
+python -m SimpleHTTPServer
+```

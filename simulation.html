@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Infectious disease dynamics</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap-slider.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+        <style type="text/css">
+
+        </style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#">Infectious disease dynamics</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="./index.html">Instructions </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./fitting.html">Fitting </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="./simulation.html">Simulation <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <!-- Button trigger modal -->
+
+                <div class="btn-group">
+                  <button id="run" type="button" class="btn btn-primary btn-lg"><i class="fa fa-play-circle"></i> Run</button>
+                  <button id="reset" type="button" class="btn btn-primary btn-lg"><i class="fa fa-fast-backward"></i> Reset</button>
+                  <button type="button" class="btn btn-primary" id="modalButton" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i> Settings
+                  </button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="map-group" class="col">
+
+                    <h2 id="stats"></h2>
+
+                    <div id="tooltip"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <div class="btn-group">
+                      <button id="int-vaccinate" data-int="vaccinate" type="button" class="btn btn-primary btn-lg btn-intervention"><i class="fa fa-flask"></i> Vaccinate</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div id="map"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id='graph-plot'></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <form>
+
+        </form>
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                      <!--
+                      <div class="form-group">
+                        <label for="area-select">Select Area</label>
+                        <select class="form-control" id="area-select">
+                          <option>Vancouver</option>
+                          <option>North America</option>
+                          <option>World</option>
+                        </select>
+                      </div>
+                  -->
+                      <div class="form-group">
+                         <label for="sim-speed">Simulation Speed</label>
+                         <input id="range-sim-speed" type="range" min="0" max="100" value="50" class="slider">
+
+                      </div>
+                      <!--
+                      <div class="form-group">
+                        <label for="tau">Movement</label>
+                        <input id="tau" data-slider-id='tauSlider' type="text" data-slider-min="-20" data-slider-max="1.0" data-slider-step="-5" data-slider-value="-6"/>
+                      </div>
+                        -->
+                      <div class="text-center">
+
+                      </div>
+                  </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="intModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 id="intModal-title" class="modal-title" id="exampleModalLabel">Intervention</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                      <div class="row">
+                          <div class="col-md-6 col-md-offset-3">
+                              <div id="int-info">
+                              </div>
+                              <div class="form-group">
+                                <label id="int-slider-label" for="exampleFormControlSelect1">Coverage</label>
+                                <input id="range-int-slider" type="range" min="0" max="100" value="50" class="slider">
+                              </div>
+                              <div class="form-group">
+                                <button id="begin-intervention" type="button" class="btn btn-primary" data-dismiss="modal">Begin intervention</button>
+                              </div>
+                          </div>
+                      </div>
+
+
+                  </div> <!-- end of modal body -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+        <!-- D3 script -->
+        <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+
+        <!-- Plot.ly js -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+        <!-- slider -->
+        <script src="./js/bootstrap-slider.js"></script>
+
+        <!-- main js script -->
+        <script type="text/javascript" src="./js/main.js"></script>
+
+    </body>
+</html>
