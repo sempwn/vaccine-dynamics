@@ -209,9 +209,9 @@ function generateTreeDiagram(div,r0,generations,reset,vac_coverage){
 
       nodeEnter.append("circle")
     	  .attr("r", 1e-6)
-    	  .style("fill", function(d) { return d.vaccinated ? "red" : "lightsteelblue"; })
+    	  .style("fill", function(d) { return d.vaccinated ? "#2ECC71" : "#F1948A"; })
           .style("stroke-width", 2)
-          .style("stroke", function(d){ return d.vaccinated ? "red" : "none"; });
+          .style("stroke", function(d){ return d.vaccinated ? "#2ECC71" : "none"; });
 
       nodeEnter.append("text")
     	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -227,9 +227,9 @@ function generateTreeDiagram(div,r0,generations,reset,vac_coverage){
 
       nodeUpdate.select("circle")
     	  .attr("r", 10)
-    	  .style("fill", function(d) { return d.vaccinated ? "red" : "lightsteelblue"; })
+    	  .style("fill", function(d) { return d.vaccinated ? "#2ECC71" : "#F1948A"; })
           .style("stroke-width", 2)
-          .style("stroke", function(d){ return d.vaccinated ? "red" : "none"; });
+          .style("stroke", function(d){ return d.vaccinated ? "#2ECC71" : "none"; });
 
       nodeUpdate.select("text")
     	  .style("fill-opacity", 1);
